@@ -6,7 +6,7 @@
 
 Here are the initial goals for the project:
 
-- [ ] **Self-contained Installer Node:** Automatically downloads and manages `arduino-cli` locally. No manual setup required from the user, ensuring a smooth "all-in-one" experience.
+- [x] **Self-contained Installer Node:** Automatically downloads and manages `arduino-cli` locally. No manual setup required from the user, ensuring a smooth "all-in-one" experience.
 - [ ] **Dynamic Upload Node:** Visually build logic with nodes, which will then generate, compile, and upload a custom sketch to your connected Arduino board.
 - [ ] **Real-time Communication:** Implement a standard sketch and corresponding nodes to send live data (e.g., servo angles, LED colors) from ComfyUI to a running Arduino without re-uploading.
 - [ ] **Example Workflows:** Provide simple, functional examples to help users get started quickly.
