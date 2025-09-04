@@ -4,27 +4,33 @@
 
 ### Core Features (Roadmap)
 
+<p align="center">
+  <img src="docs/image1.png" alt="workflow screen">
+</p>
+
+
 Here are the initial goals for the project:
 
 - [x] **Self-contained Installer Node:** Automatically downloads and manages `arduino-cli` locally. No manual setup required from the user, ensuring a smooth "all-in-one" experience.
-- [ ] **Dynamic Upload Node:** Visually build logic with nodes, which will then generate, compile, and upload a custom sketch to your connected Arduino board.
+- [x] **Dynamic Upload Node:** Visually build logic with nodes, which will then generate, compile, and upload a custom sketch to your connected Arduino board.
 - [ ] **Real-time Communication:** Implement a standard sketch and corresponding nodes to send live data (e.g., servo angles, LED colors) from ComfyUI to a running Arduino without re-uploading.
-- [ ] **Example Workflows:** Provide simple, functional examples to help users get started quickly.
+- [x] **Example Workflows:** Provide simple, functional examples to help users get started quickly.
 
-### Future Vision
+### other features
 
 Ideas for the long-term development of the project:
 
 - [ ] **Arduino Library Management:** A node to automatically install required libraries for your sketch using `arduino-cli`.
 - [ ] **High-Level Hardware Nodes:** Easy-to-use nodes for common components (servos, sensors, NeoPixel LEDs, etc.) that abstract away the low-level code.
-- [ ] **In-Workflow C++ Editor:** A dedicated node to write or paste raw Arduino (C++) code directly within ComfyUI.
+- [x] **In-Workflow C++ Editor:** A dedicated node to write or paste raw Arduino (C++) code directly within ComfyUI.
 - [ ] **Full Sketch Export:** An option to export the generated C++ code and a list of its dependencies, allowing it to be used outside of ComfyUI.
 
 ### Installation
 
 1.  Navigate to your `ComfyUI/custom_nodes/` directory.
 2.  Clone this repository: `git clone https://github.com/Juste-Leo2/ComfyUI-Arduino.git`
-3.  Restart ComfyUI. The necessary dependencies, including `arduino-cli`, should be installed automatically on the first run.
+3.  install dependencies: `pip install -r requirements.txt`
+4.  Restart ComfyUI. The necessary dependencies, including `arduino-cli`, should be installed automatically on the first run.
 
 ### Contributing
 

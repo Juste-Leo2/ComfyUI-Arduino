@@ -3,6 +3,7 @@
 import os
 from .src.arduino_installer import setup_arduino_cli
 from .src.arduino_board_finder import get_available_boards, get_fqbn_by_name
+from .src.arduino_actions import compile_and_upload_sketch # <-- NOUVEL IMPORT
 import serial.tools.list_ports
 
 def list_physical_ports():
@@ -62,3 +63,66 @@ class ArduinoTargetNode:
         
         status_message = f"✅ Target defined: {board_name} ({fqbn}) on {port}"
         return (port, fqbn, status_message)
+
+# --------------------------------------------------------------------
+# -- NODE: ARDUINO CODE INPUT ----------------------------------------
+# --------------------------------------------------------------------
+class ArduinoCodeNode:
+    @classmethod
+    def INPUT_TYPES(s):
+        default_code = "void setup() {\n  // put your setup code here, to run once:\n\n}\n\nvoid loop() {\n  // put your main code here, to run repeatedly:\n\n}"
+        return {
+            "required": {
+                "code": ("STRING", {"multiline": True, "default": default_code}),
+            }
+        }
+
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("code",)
+    FUNCTION = "get_code"
+    CATEGORY = "Arduino"
+
+    def get_code(self, code):
+        return (code,)
+
+# --------------------------------------------------------------------
+# -- NODE: COMPILE & UPLOAD SKETCH -----------------------------------
+# --------------------------------------------------------------------
+class ArduinoCompileUploadNode:
+    @classmethod
+    def INPUT_TYPES(s):
+        return {
+            "required": {
+                "port": ("STRING", {"forceInput": True}),
+                "fqbn": ("STRING", {"forceInput": True}),
+                "code": ("STRING", {"forceInput": True}),
+            }
+        }
+
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("status",)
+    FUNCTION = "compile_and_upload"
+    CATEGORY = "Arduino"
+
+    def compile_and_upload(self, port, fqbn, code):
+        # Step 1: Node-level validation
+        if SETUP_ERROR is not None:
+            return (f"❌ ERROR: Setup failed: {SETUP_ERROR}",)
+        if port == "ERROR" or fqbn == "ERROR":
+            return ("❌ ERROR: Invalid target. Check 'Define Arduino Target' node.",)
+
+        print(f"--- Arduino: Starting compile & upload for {fqbn} on {port} ---")
+        
+        # Step 2: Call the backend logic function
+        success, message = compile_and_upload_sketch(
+            cli_path=ARDUINO_CLI_PATH,
+            config_path=ARDUINO_CONFIG_PATH,
+            port=port,
+            fqbn=fqbn,
+            code=code
+        )
+        
+        print(f"--- Arduino: Process finished. ---")
+        
+        # Step 3: Return the result from the logic function
+        return (message,)
