@@ -16,4 +16,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "ArduinoCompileUpload": "Compile & Upload to Arduino",
 }
 
+__all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS"]
+
 print("...Custom Nodes: ComfyUI-Arduino loaded.")
